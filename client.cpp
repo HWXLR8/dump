@@ -7,10 +7,7 @@
 
 #include "client.h"
 
-#define PORT 6666
-#define IP "127.0.0.1" // server IP address
-
-Client::Client(std::string ip, int port) {
+Client::Client() {
   sock_ = 0;
   struct sockaddr_in serv_addr;
 
@@ -64,7 +61,7 @@ std::string Client::read_exactly(int length) {
 }
 
 int main() {
-  Client client = Client(IP, PORT);
+  Client client = Client();
 
   client.read_url();
 

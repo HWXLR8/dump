@@ -2,9 +2,13 @@
 
 #include <string>
 
+#define PORT 6666
+#define IP "127.0.0.1"
+#define DOMAIN "http://xxxxxxxxx.xxx.com/"
+
 class Server {
  public:
-  Server(std::string ip, int port);
+  Server();
   void send_url(std::string domain);
   void accept_conn();
   void read_msg();
@@ -16,15 +20,4 @@ class Server {
   int sock_;
   std::string uuid_;
   struct sockaddr_in address_;
-};
-
-class Log {
- public:
-  Log(std::string name);
-  ~Log();
-
-  void write(char* text);
-
- private:
-  std::ofstream log_file_;
 };

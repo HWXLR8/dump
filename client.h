@@ -2,9 +2,12 @@
 
 #include <string>
 
+#define PORT 6666
+#define IP "127.0.0.1" // server IP address
+
 class Client {
  public:
-  Client(std::string ip, int port);
+  Client();
   void send_msg(std::string msg);
   void read_url();
   void print_url();

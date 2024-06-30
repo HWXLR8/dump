@@ -1,6 +1,5 @@
 #include <cstring>
 #include <iostream>
-#include <fstream>
 #include <random>
 #include <sstream>
 
@@ -9,13 +8,10 @@
 #include <netinet/in.h>
 #include <unistd.h>
 
+#include "log.h"
 #include "server.h"
 
-#define PORT 6666
-#define IP "127.0.0.1"
-#define DOMAIN "http://xxxxxxxxx.xxx.com/"
-
-Server::Server(std::string ip, int port) {
+Server::Server() {
   // create socket
   if ((server_ = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
     std::cout << "FAILED TO CREATE SOCKET" << std::endl;
@@ -97,20 +93,8 @@ std::string Server::gen_uuid() {
   return id;
 }
 
-Log::Log(std::string name) {
-  log_file_ = std::ofstream(name);
-}
-
-Log::~Log() {
-  log_file_.close();
-}
-
-void Log::write(char* text) {
-  log_file_ << text;
-}
-
 int main() {
-  Server s = Server(IP, PORT);
+  Server s = Server();
   s.accept_conn();
   s.send_url(DOMAIN);
   s.read_msg();

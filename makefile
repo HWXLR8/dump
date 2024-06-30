@@ -1,18 +1,21 @@
-CFLAGS = -std=c++17
-OUTDIR = out
+CXX = g++
+CXXFLAGS = -std=c++17 -Wall -Wextra
 
-.PHONY: all
-all: $(OUTDIR)/client $(OUTDIR)/server
+SERVER_SRC = server.cpp log.cpp
+CLIENT_SRC = client.cpp
 
-$(OUTDIR)/client: client.cpp client.h | $(OUTDIR)
-	g++ $(CFLAGS) -o $@ client.cpp
+SERVER_EXE = server
+CLIENT_EXE = client
 
-$(OUTDIR)/server: server.cpp server.h | $(OUTDIR)
-	g++ $(CFLAGS) -o $@ server.cpp
+all: $(SERVER_EXE) $(CLIENT_EXE)
 
-$(OUTDIR):
-	mkdir -p $(OUTDIR)
+$(SERVER_EXE): $(SERVER_SRC)
+	$(CXX) $(CXXFLAGS) -o $(SERVER_EXE) $(SERVER_SRC)
 
-.PHONY: clean
+$(CLIENT_EXE): $(CLIENT_SRC)
+	$(CXX) $(CXXFLAGS) -o $(CLIENT_EXE) $(CLIENT_SRC)
+
 clean:
-	rm -rf $(OUTDIR)
+	rm -f $(SERVER_EXE) $(CLIENT_EXE)
+
+.PHONY: all clean
